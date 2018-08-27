@@ -23,7 +23,7 @@ We follow the same rules for discovering settings as the OpenLDAP library by che
   * System-wide configuration files (such as `/etc/openldap/ldap.conf`)
   * The current user’s configuration file (`~/.ldaprc`)
   * An `ldaprc` file in the current working directory or a parent
-  * Environment variables starting with “LDAP_” (like `LDAP_URI`)
+  * Environment variables starting with “LDAP” (like `LDAPURI`)
 
 More specific settings replace any that were previously discovered.
 
@@ -55,7 +55,7 @@ Since there are so many possible sources for these settings, you can find out wh
 >>> conf.binddn
 uid=wrong_guy,ou=people,dc=example,dc=com
 >>> conf.explain('binddn')
-BINDDN: Using value from LDAP_BINDDN environment variable
+BINDDN: Using value from LDAPBINDDN environment variable
 ```
 
 To see everything, just call `explain()` with no arguments.
@@ -63,7 +63,7 @@ To see everything, just call `explain()` with no arguments.
 ```python
 >>> conf.explain()
 BASE: Using value from /etc/openldap/ldap.conf
-BINDDN: Using value from LDAP_BINDDN environment variable
+BINDDN: Using value from LDAPBINDDN environment variable
 SASL_MECH: Using value from /home/you/.ldaprc
 TLS_CACERTDIR: Using value from /home/you/.ldaprc
 TLS_REQCERT: Using value from /etc/openldap/ldap.conf

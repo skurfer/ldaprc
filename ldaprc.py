@@ -63,9 +63,9 @@ class LDAPRC(object):
         # unless the user provided a conf file
         if self.ldaprc is not None:
             return
-        ldap_env_vars = [v for v in os.environ if v.startswith('LDAP_')]
+        ldap_env_vars = [v for v in os.environ if v.startswith('LDAP')]
         for rc_var in ldap_env_vars:
-            setting_key = rc_var[5:]
+            setting_key = rc_var[4:]
             setting_value = os.environ[rc_var]
             self._settings[setting_key.lower()] = LDAPSetting(
                 setting_key, setting_value,
