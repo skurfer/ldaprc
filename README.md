@@ -1,6 +1,6 @@
 # OpenLDAP Settings Library #
 
-This small library allows you to use your system’s existing OpenLDAP-style configuration settings with Python libraries like [ldap3]() and [Python-LDAP]().
+This small library allows you to use your system’s existing OpenLDAP-style configuration settings with Python libraries like [ldap3][1] and [Python-LDAP][2].
 
 ```python
 >>> from ldaprc import LDAPRC
@@ -101,5 +101,5 @@ $ pip install ldaprc
 
 Python 2 or 3
 
-[ldap3]: https://github.com/cannatag/ldap3
-[Python-LDAP]: https://www.python-ldap.org/
+[1]: https://github.com/cannatag/ldap3
+[2]: https://www.python-ldap.org/
