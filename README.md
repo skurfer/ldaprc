@@ -91,6 +91,12 @@ with Connection(server) as conn:
         print(conn.entries[0].mail.value)
 ```
 
+## Installation ##
+
+```console
+$ pip install ldaprc
+```
+
 ## Requirements ##
 
 Python 2 or 3
