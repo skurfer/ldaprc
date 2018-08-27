@@ -21,7 +21,8 @@ class LDAPRC(object):
     """Parse various 'ldaprc' files and return the settings."""
     def __init__(self, ldaprc=None):
         self.ldaprc = ldaprc
-        if ldaprc is None:
+        conf_file_env = ('LDAPCONF', 'LDAPRC')
+        if ldaprc is None and 'LDAPNOINIT' not in os.environ:
             # no ldaprc given, fall back on defaults
             # settings in later files will take precedence over earlier files
             ldaprc_files = [
@@ -39,6 +40,10 @@ class LDAPRC(object):
                         ldaprc_files.append(ldaprc_path)
                 keep_going = (path != os.path.dirname(path))
                 path = os.path.dirname(path) if keep_going else None
+            # look for a file referenced by environment variables
+            for conf_var in conf_file_env:
+                if conf_var in os.environ:
+                    ldaprc_files.append(os.environ[conf_var])
         else:
             # use only the user-specified ldaprc if present
             ldaprc_files = (ldaprc,)
@@ -61,10 +66,13 @@ class LDAPRC(object):
                         )
         # check environment variables, which trump everything
         # unless the user provided a conf file
-        if self.ldaprc is not None:
+        if self.ldaprc is not None or 'LDAPNOINIT' in os.environ:
             return
         ldap_env_vars = [v for v in os.environ if v.startswith('LDAP')]
         for rc_var in ldap_env_vars:
+            if rc_var in conf_file_env:
+                # these don't represent individual settings
+                continue
             setting_key = rc_var[4:]
             setting_value = os.environ[rc_var]
             self._settings[setting_key.lower()] = LDAPSetting(

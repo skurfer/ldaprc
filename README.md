@@ -23,9 +23,10 @@ We follow the same rules for discovering settings as the OpenLDAP library by che
   * System-wide configuration files (such as `/etc/openldap/ldap.conf`)
   * The current user’s configuration file (`~/.ldaprc`)
   * An `ldaprc` file in the current working directory or a parent
+  * Files referenced by the `LDAPCONF` and `LDAPRC` environment variables
   * Environment variables starting with “LDAP” (like `LDAPURI`)
 
-More specific settings replace any that were previously discovered.
+More specific settings replace any that were previously discovered. All of the above steps are skipped if the `LDAPNOINIT` variable is set.
 
 You can circumvent the discovery process by explicitly providing a configuration file, causing all other files and environment variables to be ignored.
 
