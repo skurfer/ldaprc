@@ -79,6 +79,18 @@ class LDAPRC(object):
                 setting_key, setting_value,
                 '{} environment variable'.format(rc_var),
             )
+        # handle multiple URIs
+        raw_uri = self._settings.get('uri')
+        if raw_uri:
+            uri_list = raw_uri.value.split()
+            self._settings['uri_list'] = LDAPSetting(
+                'URI List', uri_list, raw_uri.source
+            )
+            if len(uri_list) > 1:
+                uri = uri_list[0]
+                self._settings['uri'] = LDAPSetting(
+                    raw_uri.raw_name, uri, raw_uri.source
+                )
 
     def __getattr__(self, setting):
         if setting.lower() in self._settings:

@@ -48,6 +48,28 @@ dc=example,dc=com
 dc=example,dc=com
 ```
 
+## Multiple URIs ##
+
+OpenLDAP allows the URI to contain multiple values separated by whitespace.
+
+```
+URI ldap01.example.com ldap02.example.com
+```
+
+The ldap3 library won’t accept this as a valid URI, so to be safe, the `uri` attribute of an LDAPRC object will always be a string representing the first URI listed.
+
+```python
+>>> conf.uri
+ldap01.example.com
+```
+
+Use the `uri_list` attribute to get the list of all URIs discovered.
+
+```python
+>>> conf.uri_list
+['ldap01.example.com', 'ldap02.example.com']
+```
+
 ## Troubleshooting ##
 
 Since there are so many possible sources for these settings, you can find out where each came from (when you see unexpected/incorrect values, etc).
